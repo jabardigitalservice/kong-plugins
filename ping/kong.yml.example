@@ -1,28 +1,17 @@
 _format_version: "3.0"
 
 services:
-  - name: "otp-send-v2-services"
-    url: "http://localhost:30004/v2/otp/send"
+  - name: "ping-services"
+    url: "http://localhost"
     routes:
-      - name: "otp-send-v2-route"
+      - name: "ping-route"
         paths:
-          - "/v2/otp/send"
+          - "/ping"
     plugins:
-      - name: preprocess-otp
-  - name: "otp-request-v2-services"
-    url: "http://localhost:30004/v2/otp/request"
-    routes:
-      - name: "otp-request-v2-route"
-        paths:
-          - "/v2/otp/request"
-    plugins:
-      - name: preprocess-otp
-  - name: "otp-generate-v2-services"
-    url: "http://localhost:30004/v2/otp/generate"
-    routes:
-      - name: "otp-generate-v2-route"
-        paths:
-          - "/v2/otp/generate"
-    plugins:
-      - name: preprocess-otp
+      - name: ping
+        config:
+          services:
+            - name: "user"
+              method: "GET"
+              url: "http://user.local/ping"
 
