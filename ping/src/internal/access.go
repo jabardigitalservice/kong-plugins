@@ -29,13 +29,16 @@ type (
 
 func (conf *Config) Access(kong *pdk.PDK) {
 	var (
-		status     = STATUS_FAILED
-		statusCode = http.StatusFailedDependency
-		ctx        = context.Background()
-		response   Response
+		ctx      = context.Background()
+		response Response
 	)
 
 	for _, service := range conf.Services {
+		var (
+			status     = STATUS_FAILED
+			statusCode = http.StatusFailedDependency
+		)
+
 		hostname, err := os.Hostname()
 		if err != nil {
 			kong.Response.Exit(500, err.Error(), nil)
