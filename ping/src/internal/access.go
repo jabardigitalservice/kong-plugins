@@ -30,7 +30,7 @@ type (
 func (conf *Config) Access(kong *pdk.PDK) {
 	var (
 		status     = STATUS_FAILED
-		statusCode = http.StatusOK
+		statusCode = http.StatusFailedDependency
 		ctx        = context.Background()
 		response   Response
 	)
@@ -43,11 +43,7 @@ func (conf *Config) Access(kong *pdk.PDK) {
 
 		response.Hostname = hostname
 
-		resp, err := pingService(ctx, service["url"], service["method"], 1000)
-		if err != nil {
-			statusCode = http.StatusFailedDependency
-		}
-
+		resp, _ := pingService(ctx, service["url"], service["method"], 1000)
 		if resp != nil {
 			statusCode = resp.StatusCode
 
