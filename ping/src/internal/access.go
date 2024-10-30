@@ -34,6 +34,7 @@ func (conf *Config) Access(kong *pdk.PDK) {
 	)
 
 	for _, service := range conf.Services {
+		now := time.Now()
 		var (
 			status     = STATUS_FAILED
 			statusCode = http.StatusFailedDependency
@@ -56,10 +57,11 @@ func (conf *Config) Access(kong *pdk.PDK) {
 		}
 
 		response.Services = append(response.Services, map[string]interface{}{
-			"name":   service["name"],
-			"code":   statusCode,
-			"status": status,
-			"url":    service["url"],
+			"name":         service["name"],
+			"code":         statusCode,
+			"status":       status,
+			"url":          service["url"],
+			"responseTime": time.Since(now) * time.Second,
 		})
 	}
 
