@@ -61,7 +61,7 @@ func (conf *Config) Access(kong *pdk.PDK) {
 			"code":         statusCode,
 			"status":       status,
 			"url":          service["url"],
-			"responseTime": time.Since(now) * time.Second,
+			"responseTime": time.Since(now).Seconds(),
 		})
 	}
 
